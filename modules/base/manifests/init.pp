@@ -1,10 +1,10 @@
 class base {
 
-  file { '/etc/issue.net':
+  file { '/etc/issue':
       ensure  => file,
 		    owner   => 'root',
 		      mode    => '0644',
-          path    => '/etc/issue.net',
-          source  => 'puppet:///modules/base/issue.net',
+          path    => '/etc/issue',
+          source  => 'puppet:///modules/base/issue',
 	}
 }
