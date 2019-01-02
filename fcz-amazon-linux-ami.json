@@ -1,0 +1,46 @@
+{
+    "variables": {
+        "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+        "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+        "region":         "us-east-1"
+    },
+    "builders": [
+        {
+            "access_key": "{{user `aws_access_key`}}",
+            "ami_name": "fcz-amazon-linux-{{timestamp}}",
+            "ami_users":["418441809434", "659937892861"],
+            "instance_type": "t2.micro",
+            "region": "us-east-1",
+            "secret_key": "{{user `aws_secret_key`}}",
+            "source_ami_filter": {
+              "filters": {
+              "virtualization-type": "hvm",
+              "name": "amzn2-ami-hvm-2.0.20180924-x86_64-gp2",
+              "root-device-type": "ebs"
+              },
+              "owners": ["137112412989"],
+              "most_recent": true
+            },
+            "ssh_username": "ec2-user",
+            "tags": [
+              {
+                "Managed": "FCZ",
+                "Maintainer": "phillips.james@gmail.com"
+                }
+              ],
+            "type": "amazon-ebs"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "./files/install.sh"
+        },
+        {
+          "type": "puppet-masterless",
+          "manifest_file": "./manifests/site.pp",
+          "module_paths": "./modules",
+          "puppet_bin_dir":"/opt/puppetlabs/bin"
+        }
+    ]
+}
