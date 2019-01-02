@@ -1,4 +1,4 @@
 node default {
-		include base
-		include cloudteam
+		class { 'base': }
+		class { 'cloudteam': }
 }
