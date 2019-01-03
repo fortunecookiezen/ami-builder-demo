@@ -41,6 +41,10 @@
           "manifest_file": "./manifests/site.pp",
           "module_paths": "./modules",
           "puppet_bin_dir":"/opt/puppetlabs/bin"
+        },
+        {
+          "type": "shell",
+          "inline": [ "sudo gem install aws-sdk" ]
         }
     ]
 }
